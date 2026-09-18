@@ -8,6 +8,7 @@ public class Rot13{
     public String xifratRot13 (String cadena){
 
         String resultat = "";
+        boolean trobada = false;
         
         for(int i = 0; i < cadena.length(); i++ ){ 
             
@@ -18,6 +19,7 @@ public class Rot13{
                     int posicioNova = (j + 13) % majuscules.length;
                     char lletraXifrada = majuscules[posicioNova];
                     resultat += lletraXifrada;
+                    trobada = true;
                 }
 
             }
@@ -27,8 +29,14 @@ public class Rot13{
                     int posicioNova = (k + 13) % miniscules.length;
                     char lletraXifrada = miniscules[posicioNova];
                     resultat += lletraXifrada;
+                    trobada = true;
                 }
             }
+
+            if (!trobada){
+                resultat += lletra;
+            }
+
 
         }
 
@@ -38,23 +46,73 @@ public class Rot13{
 
     public String desXifratRot13(String cadena){
 
-        String resultat = "";
+         String resultat = "";
+        boolean trobada = false;
+        
+        for(int i = 0; i < cadena.length(); i++ ){ 
+            
+            char lletra = cadena.charAt(i);
 
-        for(int i = 0; i < majuscules.length; i++){
+            for(int j = 0; j < majuscules.length; j++){
+                if(lletra == majuscules[j]){
+                    int posicioNova = (j - 13) % majuscules.length;
+                    char lletraXifrada = majuscules[posicioNova];
+                    resultat += lletraXifrada;
+                    trobada = true;
+                }
+
+            }
+
+            for(int k = 0; k < miniscules.length; k++){
+                if(lletra == miniscules[k]){
+                    int posicioNova = (k - 13) % miniscules.length;
+                    char lletraXifrada = miniscules[posicioNova];
+                    resultat += lletraXifrada;
+                    trobada = true;
+                }
+            }
+
+            if (!trobada){
+                resultat += lletra;
+            }
+
 
         }
 
         return resultat;
-    }
 
 
     void main() {
 
-        String frase = "ABC";
+        String frase1 = "ABC";
+        String frase2 = "XYZ";
+        String frase3 = "Hola, Mr. calçot";
+        String frase4 = "Perdó, per tu què és?";
 
         System.out.println("Xifrat");
+        System.out.println("--------");
 
-        System.out.println(xifratRot13(frase));
+        System.out.printf("%-25s => %s%n", frase1, xifratRot13(frase1));
+        System.out.printf("%-25s => %s%n", frase2, xifratRot13(frase2));
+        System.out.printf("%-25s => %s%n", frase3, xifratRot13(frase3));
+        System.out.printf("%-25s => %s%n", frase4, xifratRot13(frase4));
+
+        System.out.println();
+        System.out.println("Desxifrat");
+        System.out.println("---------");
+
+        String fraseXifrada1 = xifratRot13(frase1);
+        String fraseXifrada2 = xifratRot13(frase2);
+        String fraseXifrada3 = xifratRot13(frase3);
+        String fraseXifrada4 = xifratRot13(frase4);
+
+        System.out.printf("%-25s => %s%n", fraseXifrada1, desXifratRot13(fraseXifrada1));
+        System.out.printf("%-25s => %s%n", fraseXifrada2, desXifratRot13(fraseXifrada2));
+        System.out.printf("%-25s => %s%n", fraseXifrada3, desXifratRot13(fraseXifrada3));
+        System.out.printf("%-25s => %s%n", fraseXifrada4, desXifratRot13(fraseXifrada4));
+    }
+
+        
 
     }
 
